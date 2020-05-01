@@ -1,0 +1,31 @@
+.navbar {
+    background-color: white;
+}
+
+.bg-primary {
+    background-color: #7ebdb4 !important;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.sidenav {
+    display: flex;
+}
+
+.sidenav .fas {
+    font-size: 1.4em;
+}
+
+.selected::after {
+    content: '';
+    display: block;
+    width: 6px;
+    background: white;
+    clip-path: polygon(0 50%, 100% 60%, 100% 40%);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}

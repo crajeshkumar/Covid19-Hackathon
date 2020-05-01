@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use App\Student;
+use App\Car;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,16 @@ use App\Student;
 
 Route::get('/ping', function () {
     return array(
-        'success'=>true
+        'success'=>true,
     );
+});
+
+Route::get('/car', function(){
+    return Car::all(); // SELECT *
+});
+
+Route::get('/car/{id}', function($id){
+    return Car::find($id);
 });
 
 Route::get('/student', function(){
@@ -30,12 +39,12 @@ Route::get('/student/{id}', function($id){
 });
 
 Route::post('/student', function(){
-    return Request::all();
+    $input = Request::all();
 
-    $student = new Student;
+    $student = new Student; 
 
-    $student->name = 'Yogi';
-    $student->save();
+    $student->name = $input['name'];
+    $student->save(); // INSERT INTO students 
 
     return array(
         'success'=>true
