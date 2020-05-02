@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use App\Student;
-use App\Car;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,36 +14,30 @@ use App\Car;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/formsuccess',function(){
+    return ["form"=>'submitted'];
+});
 Route::get('/ping', function () {
-    return array(
-        'success'=>true,
-    );
+    return view('welcome');
 });
+Route::get('/form', 'formController@create');
 
-Route::get('/car', function(){
-    return Car::all(); // SELECT *
-});
-
-Route::get('/car/{id}', function($id){
-    return Car::find($id);
-});
-
+Route::post('/form', 'formController@store');
 Route::get('/student', function(){
     return Student::all();
 });
 
 Route::get('/student/{id}', function($id){
-    return Student::find($id);
+    return view('details',array('id'=>$id));
 });
 
 Route::post('/student', function(){
-    $input = Request::all();
+    return Request::all();
 
-    $student = new Student; 
+    $student = new Student;
 
-    $student->name = $input['name'];
-    $student->save(); // INSERT INTO students 
+    $student->name = 'Yogi';
+    $student->save();
 
     return array(
         'success'=>true
