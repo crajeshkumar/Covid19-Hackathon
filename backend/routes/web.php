@@ -43,3 +43,4 @@ Route::post('/student', function(){
         'success'=>true
     );
 });
+Route::resource('commuincation','PageController');
