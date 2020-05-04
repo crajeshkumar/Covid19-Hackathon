@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use App\Student;
 use App\Car;
+use App\Hospital;
+use App\Pass;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,10 @@ use App\Car;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', function(){
+    return response()->file('../public/index.html');
+});
 
 Route::get('/ping', function () {
     return array(
@@ -32,6 +38,33 @@ Route::get('/car/{id}', function($id){
 
 Route::get('/student', function(){
     return Student::all();
+});
+
+Route::get('/hospital', function(){
+    return Hospital::all();
+});
+
+Route::get('/pass/{id}', function($id){
+    $pass = Pass::find($id);
+    $pass->hash = md5(rand(0,255));
+    $pass->save();
+    return $pass->hash;
+});
+
+Route::post('/pass', function(){
+    $input = Request::all();
+
+    $pass = new Pass;
+    
+    $pass->name = $input['name'];
+    $pass->reason = $input['reason'];
+    $pass->aadhar = $input['aadhar'];
+    $pass->from = $input['from'];
+    $pass->to = $input['to'];
+
+    $pass->save();
+
+    return $pass->id;
 });
 
 Route::get('/student/{id}', function($id){

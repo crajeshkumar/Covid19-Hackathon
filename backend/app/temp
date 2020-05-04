@@ -1,0 +1,2 @@
+insert into hospitals_map (address, city, latitude, longitude, phone) values
+('Dhubri Civil Hospital', 'Jhagrarpar','26.035340', '89.964576', '081348 63193');
