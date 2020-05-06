@@ -14,10 +14,12 @@ use App\Student;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::get('/formsuccess',function(){
     return ["form"=>'submitted'];
 });
-Route::get('/ping', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/form', 'formController@create');
@@ -26,6 +28,7 @@ Route::post('/form', 'formController@store');
 Route::get('/student', function(){
     return Student::all();
 });
+
 
 Route::get('/student/{id}', function($id){
     return view('details',array('id'=>$id));
@@ -44,3 +47,28 @@ Route::post('/student', function(){
     );
 });
 Route::resource('communication','PageController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware'=>['auth','admin']],function(){
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    });
+    Route::get('/admin/pass/{id}/approve',function(){
+           //temporary fix
+    });
+    Route::get('/admin/pass/{id}/reject',function(){
+        //temporary fix
+    });
+    Route::post('/admin/pass/{id}/approve',function($id){
+        return ['approved' => $id];
+    });
+    Route::post('/admin/pass/{id}/reject',function($id){
+        return ['rejected' => $id];
+    });
+    Route::get('/admin/pass',function(){
+        return ['please use your data to show all members here' => true];
+    });
+});
