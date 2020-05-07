@@ -72,3 +72,4 @@ Route::group(['middleware'=>['auth','admin']],function(){
         return ['please use your data to show all members here' => true];
     });
 });
+Route::resource('patientform','patientcontroller');
